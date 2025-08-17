@@ -1,0 +1,11 @@
+name: internal
+version: 0.0.0
+homepage: https://github.com/morloclib/internal
+synopsis: The universal and required implicit Morloc module
+description: Includes the Packable typeclass required for internal serialization
+category: language-base
+license: MIT
+author: "Zebulun Arendsee"
+maintainer: "z@morloc.com"
+github: https://github.com/morloclib/internal
+bug-reports: https://github.com/morloclib/internal

@@ -1,0 +1,5 @@
+module internal ()
+
+class Packable a b where
+  pack a b :: a -> b
+  unpack a b :: b -> a
