@@ -1,4 +1,4 @@
-module internal ()
+module internal (Packable)
 
 class Packable a b where
   pack a b :: a -> b
