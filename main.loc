@@ -1,5 +1,13 @@
-module internal (Packable)
+module internal (Packable, (.), ($))
 
 class Packable a b where
   pack a b :: a -> b
   unpack a b :: b -> a
+
+infixr 9 .
+(.) a b c :: (b -> c) -> (a -> b) -> a -> c
+(.) g f x = g (f x)
+
+infixr 0 $
+($) :: (a -> b) -> a -> b
+($) f x = f x
