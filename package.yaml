@@ -1,5 +1,5 @@
 name: internal
-version: 0.0.0
+version: 0.1.0
 homepage: https://github.com/morloclib/internal
 synopsis: The universal and required implicit Morloc module
 description: Includes the Packable typeclass required for internal serialization

@@ -1,8 +1,13 @@
-module internal (Packable, (.), ($))
+module internal (*)
+
 
 class Packable a b where
   pack a b :: a -> b
   unpack a b :: b -> a
+
+class Coercible a b where
+  coerce a b :: a -> b
+
 
 infixr 9 .
 (.) a b c :: (b -> c) -> (a -> b) -> a -> c
@@ -11,3 +16,107 @@ infixr 9 .
 infixr 0 $
 ($) :: (a -> b) -> a -> b
 ($) f x = f x
+
+--' Either Null or a value
+--' metavar: OPT
+type Optional a
+
+--' An expression that will not be evaluated until forced
+--' metavar: OPT
+type Thunk a
+
+--' Unit / Null type with a single value
+--' metavar: UNIT
+type Unit
+
+--' Real with no specified width or precision
+--' metavar: REAL
+type Real
+
+--' Integer number with no specified width
+--' metavar: INT
+type Int
+
+--' String with no specified encoding (usually UTF-8)
+--' metavar: STR
+type Str
+
+--' True or false value
+--' metavar: BOOL
+type Bool
+
+--' A homogenous list
+--' metavar: LIST
+type List a
+
+--' A 2 element tuple
+--' metavar: TUPLE2
+type Tuple2 a b
+
+--' A 3 element tuple
+--' metavar: TUPLE3
+type Tuple3 a b c
+
+--' A 4 element tuple
+--' metavar: TUPLE4
+type Tuple4 a b c d
+
+--' A 5 element tuple
+--' metavar: TUPLE5
+type Tuple5 a b c d e
+
+--' A 6 element tuple
+--' metavar: TUPLE6
+type Tuple6 a b c d e f
+
+--' A 7 element tuple
+--' metavar: TUPLE7
+type Tuple7 a b c d e f g
+
+--' An 8 element tuple
+--' metavar: TUPLE8
+type Tuple8 a b c d e f g h
+
+--' 64-bit float
+--' metavar: F64
+type Float64 = Real
+
+--' 32-bit float
+--' metavar: F32
+type Float32 = Real
+
+--' 64 bit integer
+--' metavar: INT64
+type Int64 = Int
+
+--' 32 bit integer
+--' metavar: INT32
+type Int32 = Int
+
+--' 16 bit integer
+--' metavar: INT16
+type Int16 = Int
+
+--' 8 bit integer
+--' metavar: INT8
+type Int8 = Int
+
+--' 64 bit unsigned integer
+--' metavar: UINT64
+type UInt64 = Int
+
+--' 32 bit unsigned integer
+--' metavar: UINT32
+type UInt32 = Int
+
+--' 16 bit unsigned integer
+--' metavar: UINT16
+type UInt16 = Int
+
+--' 8 bit unsigned integer
+--' metavar: UINT8
+type UInt8 = Int
+
+--' A map with keys of type `a` and values of type `b`
+--' metavar: MAP
+type Map a b
