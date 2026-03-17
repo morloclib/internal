@@ -2,15 +2,15 @@ module internal (*)
 
 
 class Packable a b where
-  pack a b :: a -> b
-  unpack a b :: b -> a
+  pack :: a -> b
+  unpack :: b -> a
 
 class Coercible a b where
-  coerce a b :: a -> b
+  coerce :: a -> b
 
 
 infixr 9 .
-(.) a b c :: (b -> c) -> (a -> b) -> a -> c
+(.) :: (b -> c) -> (a -> b) -> a -> c
 (.) g f x = g (f x)
 
 infixr 0 $
