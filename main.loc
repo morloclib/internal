@@ -17,6 +17,7 @@ infixr 0 $
 ($) :: (a -> b) -> a -> b
 ($) f x = f x
 
+
 --' Either Null or a value
 --' metavar: OPT
 type Optional a
@@ -49,6 +50,22 @@ type Bool
 --' metavar: LIST
 type List a
 
+--' A Nat-dimensioned dense vector (n-element 1D dense array)
+--' metavar: VECTOR
+type Vector (n :: Nat) a = [a]
+
+--' A Nat-dimensioned dense matrix
+--' metavar: MATRIX
+type Matrix (m :: Nat) (n :: Nat) a = [[a]]
+
+-- Dense N-dimensional tensors (built-in types with row-major contiguous storage)
+type Tensor1 (d1 :: Nat) a
+type Tensor2 (d1 :: Nat) (d2 :: Nat) a
+type Tensor3 (d1 :: Nat) (d2 :: Nat) (d3 :: Nat) a
+type Tensor4 (d1 :: Nat) (d2 :: Nat) (d3 :: Nat) (d4 :: Nat) a
+type Tensor5 (d1 :: Nat) (d2 :: Nat) (d3 :: Nat) (d4 :: Nat) (d5 :: Nat) a
+
+
 --' A 2 element tuple
 --' metavar: TUPLE2
 type Tuple2 a b
@@ -76,6 +93,22 @@ type Tuple7 a b c d e f g
 --' An 8 element tuple
 --' metavar: TUPLE8
 type Tuple8 a b c d e f g h
+
+--' An 9 element tuple
+--' metavar: TUPLE8
+type Tuple9 a b c d e f g h i
+
+--' An 10 element tuple
+--' metavar: TUPLE8
+type Tuple10 a b c d e f g h i j
+
+--' An 11 element tuple
+--' metavar: TUPLE8
+type Tuple11 a b c d e f g h i j k
+
+--' An 12 element tuple
+--' metavar: TUPLE8
+type Tuple12 a b c d e f g h i j k l
 
 --' 64-bit float
 --' metavar: F64
