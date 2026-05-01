@@ -31,13 +31,6 @@ type Thunk a
 type Unit
 
 --' Real with no specified width or precision
---' metavar: REAL
-type Real
-
---' Integer number with no specified width
---' metavar: INT
-type Int
-
 --' String with no specified encoding (usually UTF-8)
 --' metavar: STR
 type Str
@@ -49,22 +42,6 @@ type Bool
 --' A homogenous list
 --' metavar: LIST
 type List a
-
---' A Nat-dimensioned dense vector (n-element 1D dense array)
---' metavar: VECTOR
-type Vector (n :: Nat) a = [a]
-
---' A Nat-dimensioned dense matrix
---' metavar: MATRIX
-type Matrix (m :: Nat) (n :: Nat) a = [[a]]
-
--- Dense N-dimensional tensors (built-in types with row-major contiguous storage)
-type Tensor1 (d1 :: Nat) a
-type Tensor2 (d1 :: Nat) (d2 :: Nat) a
-type Tensor3 (d1 :: Nat) (d2 :: Nat) (d3 :: Nat) a
-type Tensor4 (d1 :: Nat) (d2 :: Nat) (d3 :: Nat) (d4 :: Nat) a
-type Tensor5 (d1 :: Nat) (d2 :: Nat) (d3 :: Nat) (d4 :: Nat) (d5 :: Nat) a
-
 
 --' A 2 element tuple
 --' metavar: TUPLE2
@@ -110,46 +87,49 @@ type Tuple11 a b c d e f g h i j k
 --' metavar: TUPLE8
 type Tuple12 a b c d e f g h i j k l
 
+--' metavar: REAL
+type Real
+
 --' 64-bit float
 --' metavar: F64
-type Float64 = Real
+type Float64
 
 --' 32-bit float
 --' metavar: F32
-type Float32 = Real
+type Float32
+
+--' Integer number with no specified width
+--' metavar: INT
+type Int
 
 --' 64 bit integer
 --' metavar: INT64
-type Int64 = Int
+type Int64
 
 --' 32 bit integer
 --' metavar: INT32
-type Int32 = Int
+type Int32
 
 --' 16 bit integer
 --' metavar: INT16
-type Int16 = Int
+type Int16
 
 --' 8 bit integer
 --' metavar: INT8
-type Int8 = Int
+type Int8
 
 --' 64 bit unsigned integer
 --' metavar: UINT64
-type UInt64 = Int
+type UInt64
 
 --' 32 bit unsigned integer
 --' metavar: UINT32
-type UInt32 = Int
+type UInt32
 
 --' 16 bit unsigned integer
 --' metavar: UINT16
-type UInt16 = Int
+type UInt16
 
 --' 8 bit unsigned integer
 --' metavar: UINT8
-type UInt8 = Int
-
---' A map with keys of type `a` and values of type `b`
---' metavar: MAP
-type Map a b
+type UInt8
