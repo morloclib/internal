@@ -8,6 +8,9 @@ class Packable a b where
 class Coercible a b where
   coerce :: a -> b
 
+class Negatable a where
+  negate :: a -> a
+
 
 infixr 9 .
 (.) :: (b -> c) -> (a -> b) -> a -> c
