@@ -11,6 +11,24 @@ class Coercible a b where
 class Negatable a where
   negate :: a -> a
 
+-- Conversion from any integral type to Int64. Instances are simple casts
+-- (one source helper per language covers every integer width). Kept in
+-- internal -- and deliberately NOT a member of any arithmetic typeclass --
+-- so the slicer surface can accept all integer widths without forcing a
+-- numeric hierarchy on every module that uses internal.
+class IndexLike i where
+  __to_index__ :: i -> Int64
+
+class Indexable f where
+  __access_index__ :: Int64 -> f a -> a
+
+class Sliceable f where
+  -- Python-style indexed slice: start, stop, step (all optional). The instance
+  -- chooses defaults from the step sign at runtime (step > 0 defaults to start
+  -- 0 and stop length; step < 0 defaults to start length-1 and stop -1; step
+  -- Null is treated as 1). step 0 is a runtime error.
+  __get_slice__ :: ?Int64 -> ?Int64 -> ?Int64 -> f a -> f a
+
 
 infixr 9 .
 (.) :: (b -> c) -> (a -> b) -> a -> c
@@ -23,116 +41,112 @@ infixr 0 $
 
 --' Either Null or a value
 --' metavar: OPT
-type Optional a
-
---' An expression that will not be evaluated until forced
---' metavar: OPT
-type Thunk a
+newtype Optional a
 
 --' Unit / Null type with a single value
 --' metavar: UNIT
-type Unit
+newtype Unit
 
 --' Real with no specified width or precision
 --' String with no specified encoding (usually UTF-8)
 --' metavar: STR
-type Str
+newtype Str
 
 --' True or false value
 --' metavar: BOOL
-type Bool
+newtype Bool
 
 --' A homogenous list
 --' metavar: LIST
-type List a
+newtype List a
 
 --' A 2 element tuple
 --' metavar: TUPLE2
-type Tuple2 a b
+newtype Tuple2 a b
 
 --' A 3 element tuple
 --' metavar: TUPLE3
-type Tuple3 a b c
+newtype Tuple3 a b c
 
 --' A 4 element tuple
 --' metavar: TUPLE4
-type Tuple4 a b c d
+newtype Tuple4 a b c d
 
 --' A 5 element tuple
 --' metavar: TUPLE5
-type Tuple5 a b c d e
+newtype Tuple5 a b c d e
 
 --' A 6 element tuple
 --' metavar: TUPLE6
-type Tuple6 a b c d e f
+newtype Tuple6 a b c d e f
 
 --' A 7 element tuple
 --' metavar: TUPLE7
-type Tuple7 a b c d e f g
+newtype Tuple7 a b c d e f g
 
 --' An 8 element tuple
 --' metavar: TUPLE8
-type Tuple8 a b c d e f g h
+newtype Tuple8 a b c d e f g h
 
 --' An 9 element tuple
 --' metavar: TUPLE8
-type Tuple9 a b c d e f g h i
+newtype Tuple9 a b c d e f g h i
 
 --' An 10 element tuple
 --' metavar: TUPLE8
-type Tuple10 a b c d e f g h i j
+newtype Tuple10 a b c d e f g h i j
 
 --' An 11 element tuple
 --' metavar: TUPLE8
-type Tuple11 a b c d e f g h i j k
+newtype Tuple11 a b c d e f g h i j k
 
 --' An 12 element tuple
 --' metavar: TUPLE8
-type Tuple12 a b c d e f g h i j k l
+newtype Tuple12 a b c d e f g h i j k l
 
 --' metavar: REAL
-type Real
+newtype Real
 
 --' 64-bit float
 --' metavar: F64
-type Float64
+newtype Float64
 
 --' 32-bit float
 --' metavar: F32
-type Float32
+newtype Float32
 
 --' Integer number with no specified width
 --' metavar: INT
-type Int
+newtype Int
 
 --' 64 bit integer
 --' metavar: INT64
-type Int64
+newtype Int64
 
 --' 32 bit integer
 --' metavar: INT32
-type Int32
+newtype Int32
 
 --' 16 bit integer
 --' metavar: INT16
-type Int16
+newtype Int16
 
 --' 8 bit integer
 --' metavar: INT8
-type Int8
+newtype Int8
 
 --' 64 bit unsigned integer
 --' metavar: UINT64
-type UInt64
+newtype UInt64
 
 --' 32 bit unsigned integer
 --' metavar: UINT32
-type UInt32
+newtype UInt32
 
 --' 16 bit unsigned integer
 --' metavar: UINT16
-type UInt16
+newtype UInt16
 
 --' 8 bit unsigned integer
 --' metavar: UINT8
-type UInt8
+newtype UInt8
