@@ -17,17 +17,22 @@ class Negatable a where
 -- so the slicer surface can accept all integer widths without forcing a
 -- numeric hierarchy on every module that uses internal.
 class IndexLike i where
-  __to_index__ :: i -> Int64
+  __to_index__ :: i -> ?Int64
 
 class Indexable f where
-  __access_index__ :: Int64 -> f a -> a
+  __access_index__ :: ?Int64 -> f a -> a
 
 class Sliceable f where
   -- Python-style indexed slice: start, stop, step (all optional). The instance
   -- chooses defaults from the step sign at runtime (step > 0 defaults to start
   -- 0 and stop length; step < 0 defaults to start length-1 and stop -1; step
-  -- Null is treated as 1). step 0 is a runtime error.
+  -- Null is treated as 1). step 0 is a runtime error. Closed form: result
+  -- shares the receiver's container shape (used by List, Str, ...).
   __get_slice__ :: ?Int64 -> ?Int64 -> ?Int64 -> f a -> f a
+
+-- Sliceable for Nat-parameterized containers such as Vector types
+class SliceableDim f where
+  __get_slice_dim__ :: ?Int64 -> ?Int64 -> ?Int64 -> f n a -> f m a
 
 
 infixr 9 .
