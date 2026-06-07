@@ -34,7 +34,25 @@ class Sliceable f where
 class SliceableDim f where
   __get_slice_dim__ :: ?Int64 -> ?Int64 -> ?Int64 -> f n a -> f m a
 
-
+-- -- .[x | x <- xs, y <- ys, x > 1]
+-- class ListComprehensible f where
+--   __list_comprehension_1__ :: f a -> (a -> a) -> f a
+--   __list_comprehension_2__ :: f a -> f a -> (a -> a -> a) -> f a
+--   __list_comprehension_3__ :: f a -> f a -> f a -> (a -> a -> a) -> f a
+--
+--   __list_comprehension_filtered_1__ :: f a -> (a -> a) -> (a -> a -> a -> Bool) -> f a
+--   __list_comprehension_filtered_2__ :: f a -> f a -> (a -> a -> a) -> (a -> a -> Bool) -> f a
+--   __list_comprehension_filtered_3__ :: f a -> f a -> f a -> (a -> a -> a) -> (a -> a -> a -> Bool) -> f a
+--
+-- class ListComprehensibleDim f n where
+--   __list_comprehension_dim_1__ :: f n1 a -> (a -> a) -> f n1 a
+--   __list_comprehension_dim_2__ :: f n1 a -> f n2 a -> (a -> a -> a) -> f (n1*n2) a
+--   __list_comprehension_dim_3__ :: f n1 a -> f n2 a -> f n3 a -> (a -> a -> a) -> f (n1*n2*n3) a
+--
+--   __list_comprehension_dim_1__ :: f n1 a -> (a -> a) -> (a -> a -> a -> Bool) -> f m a
+--   __list_comprehension_dim_2__ :: f n1 a -> f n2 a -> (a -> a -> a) -> (a -> a -> Bool) -> f m a
+--   __list_comprehension_dim_3__ :: f n1 a -> f n2 a -> f n3 a -> (a -> a -> a) -> (a -> a -> a -> Bool) -> f m a
+--
 infixr 9 .
 (.) :: (b -> c) -> (a -> b) -> a -> c
 (.) g f x = g (f x)
