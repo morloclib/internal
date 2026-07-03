@@ -37,7 +37,7 @@ class SliceableDim f where
   __get_slice_dim__ :: ?Int64 -> ?Int64 -> ?Int64 -> f n a -> f m a
 
 class Sizeable f where
-  size :: f -> Int
+  size :: f -> UInt64
 
 -- Canonical string form of a pattern-accessor chain.
 -- Phantom types: `a` is the receiver type, `b` is the extracted type.
