@@ -36,6 +36,21 @@ class Sliceable f where
 class SliceableDim f where
   __get_slice_dim__ :: ?Int64 -> ?Int64 -> ?Int64 -> f n a -> f m a
 
+class Sizeable f where
+  size :: f -> Int
+
+-- Canonical string form of a pattern-accessor chain.
+-- Phantom types: `a` is the receiver type, `b` is the extracted type.
+-- Consumed by `PatternAccessible` instances that dispatch on the pattern.
+newtype PatternChain a b = Str
+
+-- Types that admit pattern-based extraction (.foo, .[i], .[s:e:p], .0,
+-- .(a, b), and chains) via an instance-driven walker.
+-- Runtime args (indices, slice bounds) are threaded left-to-right through
+-- the pattern; slice-step encodes exactly three optional args (start, stop,
+-- step), index-step encodes exactly one.
+class PatternAccessible w where
+  __extract_pattern__ :: PatternChain (w a) b -> [?Int64] -> w a -> b
 
 infixr 9 .
 (.) :: (b -> c) -> (a -> b) -> a -> c
@@ -157,3 +172,27 @@ newtype UInt16
 --' 8 bit unsigned integer
 --' metavar: UINT8
 newtype UInt8
+
+
+--' Random-access view of packet stored on disk.
+--'
+--' Opened via @open with an inline ascription: @open path :: IFile a.
+--' Pattern getter syntax (.[i], .[i:j], .foo, .0, and chains) reads
+--' from the file via the runtime's file-targeting pattern walker.
+--' metavar: IFILE
+newtype IFile a = UInt64
+
+--' Forward-only reader for a sequence of `a` stored on disk.
+--'
+--' Opened via @open with an inline ascription: @open path :: IStream a,
+--' or derived from an IFile with @stream f. Consumed sub-packet by
+--' sub-packet via @next; returns an empty list at EOF.
+--' metavar: ISTREAM
+newtype IStream a = UInt64
+
+--' Forward-only writer for a sequence of `a` stored on disk.
+--'
+--' Opened via @open path :: OStream a or @append path :: OStream a.
+--' Each @write emits one sub-packet; @close flushes the final footer.
+--' metavar: OSTREAM
+newtype OStream a = UInt64
