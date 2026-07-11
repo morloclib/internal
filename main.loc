@@ -7,9 +7,6 @@ class Packable a b where
   pack :: a -> b
   unpack :: b -> a
 
-class Coercible a b where
-  coerce :: a -> b
-
 class Negatable a where
   negate :: a -> a
 
