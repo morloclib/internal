@@ -10,16 +10,16 @@ class Packable a b where
 class Negatable a where
   negate :: a -> a
 
--- Conversion from any integral type to Int64. Instances are simple casts
+-- Conversion from any integral type to I64. Instances are simple casts
 -- (one source helper per language covers every integer width). Kept in
 -- internal -- and deliberately NOT a member of any arithmetic typeclass --
 -- so the slicer surface can accept all integer widths without forcing a
 -- numeric hierarchy on every module that uses internal.
 class IndexLike i where
-  __to_index__ :: i -> ?Int64
+  __to_index__ :: i -> ?I64
 
 class Indexable f where
-  __access_index__ :: ?Int64 -> f a -> a
+  __access_index__ :: ?I64 -> f a -> a
 
 class Sliceable f where
   -- Python-style indexed slice: start, stop, step (all optional). The instance
@@ -27,14 +27,14 @@ class Sliceable f where
   -- 0 and stop length; step < 0 defaults to start length-1 and stop -1; step
   -- Null is treated as 1). step 0 is a runtime error. Closed form: result
   -- shares the receiver's container shape (used by List, Str, ...).
-  __get_slice__ :: ?Int64 -> ?Int64 -> ?Int64 -> f a -> f a
+  __get_slice__ :: ?I64 -> ?I64 -> ?I64 -> f a -> f a
 
 -- Sliceable for Nat-parameterized containers such as Vector types
 class SliceableDim f where
-  __get_slice_dim__ :: ?Int64 -> ?Int64 -> ?Int64 -> f n a -> f m a
+  __get_slice_dim__ :: ?I64 -> ?I64 -> ?I64 -> f n a -> f m a
 
 class Sizeable f where
-  size :: f -> UInt64
+  size :: f -> U64
 
 -- Canonical string form of a pattern-accessor chain.
 -- Phantom types: `a` is the receiver type, `b` is the extracted type.
@@ -47,7 +47,7 @@ newtype PatternChain a b = Str
 -- the pattern; slice-step encodes exactly three optional args (start, stop,
 -- step), index-step encodes exactly one.
 class PatternAccessible w where
-  __extract_pattern__ :: PatternChain (w a) b -> [?Int64] -> w a -> b
+  __extract_pattern__ :: PatternChain (w a) b -> [?I64] -> w a -> b
 
 infixr 9 .
 (.) :: (b -> c) -> (a -> b) -> a -> c
@@ -128,11 +128,11 @@ newtype Real
 
 --' 64-bit float
 --' metavar: F64
-newtype Float64
+newtype F64
 
 --' 32-bit float
 --' metavar: F32
-newtype Float32
+newtype F32
 
 --' Integer number with no specified width
 --' metavar: INT
@@ -140,35 +140,35 @@ newtype Int
 
 --' 64 bit integer
 --' metavar: INT64
-newtype Int64
+newtype I64
 
 --' 32 bit integer
 --' metavar: INT32
-newtype Int32
+newtype I32
 
 --' 16 bit integer
 --' metavar: INT16
-newtype Int16
+newtype I16
 
 --' 8 bit integer
 --' metavar: INT8
-newtype Int8
+newtype I8
 
 --' 64 bit unsigned integer
 --' metavar: UINT64
-newtype UInt64
+newtype U64
 
 --' 32 bit unsigned integer
 --' metavar: UINT32
-newtype UInt32
+newtype U32
 
 --' 16 bit unsigned integer
 --' metavar: UINT16
-newtype UInt16
+newtype U16
 
 --' 8 bit unsigned integer
 --' metavar: UINT8
-newtype UInt8
+newtype U8
 
 
 --' Random-access view of packet stored on disk.
@@ -177,7 +177,7 @@ newtype UInt8
 --' Pattern getter syntax (.[i], .[i:j], .foo, .0, and chains) reads
 --' from the file via the runtime's file-targeting pattern walker.
 --' metavar: IFILE
-newtype IFile a = UInt64
+newtype IFile a = U64
 
 --' Forward-only reader for a sequence of `a` stored on disk.
 --'
@@ -185,11 +185,11 @@ newtype IFile a = UInt64
 --' or derived from an IFile with @stream f. Consumed sub-packet by
 --' sub-packet via @next; returns an empty list at EOF.
 --' metavar: ISTREAM
-newtype IStream a = UInt64
+newtype IStream a = U64
 
 --' Forward-only writer for a sequence of `a` stored on disk.
 --'
 --' Opened via @open path :: OStream a or @append path :: OStream a.
 --' Each @write emits one sub-packet; @close flushes the final footer.
 --' metavar: OSTREAM
-newtype OStream a = UInt64
+newtype OStream a = U64
