@@ -3,6 +3,9 @@ module internal (*)
 -- the intrinsics use IO, so this effect must be universal
 effect IO
 
+-- May raise a MorlocException; @throw introduces and @catch discharges
+escapable effect Err
+
 class Packable a b where
   pack :: a -> b
   unpack :: b -> a
