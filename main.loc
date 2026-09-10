@@ -3,8 +3,34 @@ module internal (*)
 -- the intrinsics use IO, so this effect must be universal
 effect IO
 
--- May raise a MorlocException; @throw introduces and @catch discharges
-escapable effect Err
+--' The outcome of a computation that may fail: `Ok` carries the value,
+--' `Err` what went wrong. Failure is a property of a result, not a
+--' capability a computation exercises, so it is data rather than an
+--' effect. Fallible intrinsics return one of these; `@try` converts an
+--' otherwise-uncaught native exception into one.
+--'
+--' The error parameter comes first so that a future Functor maps the last.
+--' metavar: TRY
+data Try e a = Err e | Ok a
+
+-- Take the value or abandon the computation.
+--
+-- Named `unwrap` rather than `require` because `maybe` already exports a
+-- `require :: ?a -> a` for the optional type. The two do the same job for
+-- different containers and would ideally share a name through a class.
+--
+-- The counterpart to letting a bare do-statement auto-require: when a
+-- result IS bound, nothing fires on its own, and this is how a caller says
+-- it wants the value and treats failure as fatal. `@throw` carries the
+-- error itself, so the message reaching the traceback is the one the
+-- failure produced.
+-- The error is a Str because that is what every fallible intrinsic
+-- currently carries and what `@throw` renders; a richer error type wants
+-- schema-driven rendering at the throw site first.
+unwrap :: Try Str a -> a
+unwrap x = match x
+  | (Ok v) = v
+  | (Err e) = @throw e
 
 class Packable a b where
   pack :: a -> b
