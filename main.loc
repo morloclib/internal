@@ -222,3 +222,12 @@ newtype IStream a = U64
 --' Each @write emits one sub-packet; @close flushes the final footer.
 --' metavar: OSTREAM
 newtype OStream a = U64
+
+--' Accumulator a folding stream handler carries across batches.
+--'
+--' Holds one `a` per worker that touches it. Created and released by the
+--' `@fold` handler synthesis; there is no surface syntax that opens one.
+--' The type parameter is what makes a handler's init, step and combine
+--' agree on what is being accumulated.
+--' metavar: CELL
+newtype Cell a = U64
