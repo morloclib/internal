@@ -27,6 +27,24 @@ unwrap x = match x
   | (Ok v) = v
   | (Err e) = @throw e
 
+infixl 4 (<=)
+infixl 4 (==)
+
+-- The classes below are named by the compiler (CLS-15): `==` decides
+-- literal patterns, and `deriving` builds instances of each (DERIV-2).
+
+class Eq a where
+  (==) :: a -> a -> Bool
+
+class Ord a where
+  (<=) :: a -> a -> Bool
+
+class Show a where
+  show :: a -> Str
+
+class Hashable a where
+  hash :: a -> Str
+
 class Packable a b where
   pack :: a -> b
   unpack :: b -> a
