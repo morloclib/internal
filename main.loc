@@ -101,115 +101,115 @@ infixr 0 $
 
 
 --' Either Null or a value
---' metavar: OPT
+--' @metavar OPT
 newtype Optional a
 
 --' Unit / Null type with a single value
---' metavar: UNIT
+--' @metavar UNIT
 newtype Unit
 
---' Real with no specified width or precision
 --' String with no specified encoding (usually UTF-8)
---' metavar: STR
+--' @metavar STR
 newtype Str
 
 --' True or false value
---' metavar: BOOL
+--' @metavar BOOL
 newtype Bool
 
 --' A homogenous list
---' metavar: LIST
+--' @metavar LIST
 newtype List a
 
 --' A 2 element tuple
---' metavar: TUPLE2
+--' @metavar TUPLE2
 newtype Tuple2 a b
 
 --' A 3 element tuple
---' metavar: TUPLE3
+--' @metavar TUPLE3
 newtype Tuple3 a b c
 
 --' A 4 element tuple
---' metavar: TUPLE4
+--' @metavar TUPLE4
 newtype Tuple4 a b c d
 
 --' A 5 element tuple
---' metavar: TUPLE5
+--' @metavar TUPLE5
 newtype Tuple5 a b c d e
 
 --' A 6 element tuple
---' metavar: TUPLE6
+--' @metavar TUPLE6
 newtype Tuple6 a b c d e f
 
 --' A 7 element tuple
---' metavar: TUPLE7
+--' @metavar TUPLE7
 newtype Tuple7 a b c d e f g
 
 --' An 8 element tuple
---' metavar: TUPLE8
+--' @metavar TUPLE8
 newtype Tuple8 a b c d e f g h
 
---' An 9 element tuple
---' metavar: TUPLE8
+--' A 9 element tuple
+--' @metavar TUPLE9
 newtype Tuple9 a b c d e f g h i
 
---' An 10 element tuple
---' metavar: TUPLE8
+--' A 10 element tuple
+--' @metavar TUPLE10
 newtype Tuple10 a b c d e f g h i j
 
 --' An 11 element tuple
---' metavar: TUPLE8
+--' @metavar TUPLE11
 newtype Tuple11 a b c d e f g h i j k
 
---' An 12 element tuple
---' metavar: TUPLE8
+--' A 12 element tuple
+--' @metavar TUPLE12
 newtype Tuple12 a b c d e f g h i j k l
 
---' metavar: REAL
+--' Real with no specified width or precision
+--' @metavar REAL
 newtype Real
 
 --' 64-bit float
---' metavar: F64
+--' @metavar F64
 newtype F64
 
 --' 32-bit float
---' metavar: F32
+--' @metavar F32
 newtype F32
 
 --' Integer number with no specified width
---' metavar: INT
+--' @metavar INT
 newtype Int
 
 --' 64 bit integer
---' metavar: INT64
+--' @metavar INT64
 newtype I64
 
 --' 32 bit integer
---' metavar: INT32
+--' @metavar INT32
 newtype I32
 
 --' 16 bit integer
---' metavar: INT16
+--' @metavar INT16
 newtype I16
 
 --' 8 bit integer
---' metavar: INT8
+--' @metavar INT8
 newtype I8
 
 --' 64 bit unsigned integer
---' metavar: UINT64
+--' @metavar UINT64
 newtype U64
 
 --' 32 bit unsigned integer
---' metavar: UINT32
+--' @metavar UINT32
 newtype U32
 
 --' 16 bit unsigned integer
---' metavar: UINT16
+--' @metavar UINT16
 newtype U16
 
 --' 8 bit unsigned integer
---' metavar: UINT8
+--' @metavar UINT8
 newtype U8
 
 
@@ -218,7 +218,7 @@ newtype U8
 --' Opened via @open with an inline ascription: @open path :: IFile a.
 --' Pattern getter syntax (.[i], .[i:j], .foo, .0, and chains) reads
 --' from the file via the runtime's file-targeting pattern walker.
---' metavar: IFILE
+--' @metavar IFILE
 newtype IFile a = U64
 
 --' Forward-only reader for a sequence of `a` stored on disk.
@@ -226,14 +226,14 @@ newtype IFile a = U64
 --' Opened via @open with an inline ascription: @open path :: IStream a,
 --' or derived from an IFile with @stream f. Consumed sub-packet by
 --' sub-packet via @next; returns an empty list at EOF.
---' metavar: ISTREAM
+--' @metavar ISTREAM
 newtype IStream a = U64
 
 --' Forward-only writer for a sequence of `a` stored on disk.
 --'
 --' Opened via @open path :: OStream a or @append path :: OStream a.
 --' Each @write emits one sub-packet; @close flushes the final footer.
---' metavar: OSTREAM
+--' @metavar OSTREAM
 newtype OStream a = U64
 
 --' Accumulator a folding stream handler carries across batches.
@@ -242,5 +242,5 @@ newtype OStream a = U64
 --' `@fold` handler synthesis; there is no surface syntax that opens one.
 --' The type parameter is what makes a handler's init, step and combine
 --' agree on what is being accumulated.
---' metavar: CELL
+--' @metavar CELL
 newtype Cell a = U64
