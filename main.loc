@@ -252,3 +252,10 @@ newtype OStream a = U64
 --' agree on what is being accumulated.
 --' @metavar CELL
 newtype Cell a = U64
+
+--' Output a streaming command writes to stdout
+--'
+--' Returned by @collect and @stdout, and only by them. It stands for the
+--' list of every element written, in order, before any output action.
+--' @metavar COLLECT
+newtype Collect a = Unit
